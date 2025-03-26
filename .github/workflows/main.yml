@@ -38,6 +38,12 @@ jobs:
       - name: Grant execute permission to gradlew
         run: chmod +x gradlew
 
+      - name: Debug env variables
+        run: |
+          echo "DB_URL = $DB_URL"
+          echo "DB_USERNAME = $DB_USERNAME"
+          echo "DB_PASSWORD = $DB_PASSWORD"
+
       # Gradle 빌드 및 테스트
       - name: Run unit tests
         run: ./gradlew test
