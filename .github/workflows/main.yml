@@ -1,0 +1,39 @@
+name: Dev CI on WSL Runner
+
+on:
+  push:
+    branches:
+      - dev        # dev 브랜치에 대한 push 이벤트에만 트리거
+  pull_request:
+    branches:
+      - dev        # (선택) PR이 dev 브랜치로 생성/병합될 때도 트리거
+
+jobs:
+  build-and-deploy:
+    runs-on: self-hosted  # 앞서 등록한 WSL 러너에서 실행
+    steps:
+
+
+      # 코드 가져오기
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      # Gradle 빌드 및 테스트
+      - name: Run unit tests
+        run: ./gradlew test
+
+      - name: Stop existing app
+        if: ${{ success() }}
+        run: |
+          # 실행 중인 기존 Spring Boot 애플리케이션 종료
+          pkill -f 'java.*myapp.jar' || echo "No running instance found."
+
+      - name: Build new JAR
+        if: ${{ success() }}
+        run: ./gradlew build -x test
+
+      - name: Launch updated app
+        if: ${{ success() }}
+        run: |
+          # 새로 빌드된 JAR 백그라운드 실행
+          nohup java -jar build/libs/myapp.jar --spring.profiles.active=dev > app.log 2>&1 &
