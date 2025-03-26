@@ -59,7 +59,6 @@ jobs:
           echo "📁 libs 내부 파일 목록:"
           ls -lh build/libs
           echo "🚀 Spring Boot 애플리케이션 실행 중..."
-          sudo apt-get install -y tmux
           tmux kill-session -t app || true
           tmux new-session -d -s app "java -jar build/libs/readnshare-0.0.1-SNAPSHOT.jar --spring.profiles.active=dev"
           sleep 5
