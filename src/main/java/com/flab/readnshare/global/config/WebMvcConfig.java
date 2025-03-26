@@ -32,7 +32,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
                         "/api/v1/**", "/api/v1/members/verification",
                         "/swagger-ui/**", "/v3/api-docs/**","/swagger-resources/**","/error");
     }
- 
+
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
         resolvers.add(new SignInMemberArgumentResolver(jwtUtil, memberRepository));
