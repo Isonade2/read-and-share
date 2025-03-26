@@ -1,22 +1,24 @@
 version: '3.8'
 
 services:
-  app:
-    container_name: readnshare-app
-    image: ${DOCKER_USERNAME}/readnshare:latest
+  mariadb:
+    image: mariadb:latest
+    container_name: readnshare-mariadb
     ports:
-      - "8080:8080"
-    depends_on:
-      - redis
+      - "3306:3306"
+    environment:
+      MARIADB_ROOT_PASSWORD: root
+      MARIADB_DATABASE: mydb
+      MARIADB_USER: root
+      MARIADB_PASSWORD: root
+    volumes:
+      - mariadb-data:/var/lib/mysql
 
   redis:
     image: redis:latest
     container_name: readnshare-redis
-    hostname: redis
     ports:
       - "6379:6379"
-    volumes:
-      - redis-data:/data
 
 volumes:
-  redis-data:
+  mariadb-data:
