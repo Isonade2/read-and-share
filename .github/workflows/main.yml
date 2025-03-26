@@ -63,3 +63,9 @@ jobs:
           sleep 5
           echo "📃 실행 로그 미리보기 (app.log):"
           head -n 500 app.log || echo "(로그 없음)"
+
+      - name: Check if app is running
+        if: ${{ success() }}
+        run: |
+          echo "🔍 실행 중인 Java 프로세스:"
+          pgrep -af 'java'
