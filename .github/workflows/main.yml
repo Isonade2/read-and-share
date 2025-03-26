@@ -62,4 +62,4 @@ jobs:
           nohup java -jar build/libs/readnshare-0.0.1-SNAPSHOT.jar --spring.profiles.active=dev > app.log 2>&1 &
           sleep 5
           echo "📃 실행 로그 미리보기 (app.log):"
-          head -n 200 app.log || echo "(로그 없음)"
+          head -n 500 app.log || echo "(로그 없음)"
