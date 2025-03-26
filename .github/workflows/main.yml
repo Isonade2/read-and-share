@@ -59,8 +59,8 @@ jobs:
           echo "📁 libs 내부 파일 목록:"
           ls -lh build/libs
           echo "🚀 Spring Boot 애플리케이션 실행 중..."
-          tmux kill-session -t app || true
-          tmux new-session -d -s app "java -jar build/libs/readnshare-0.0.1-SNAPSHOT.jar --spring.profiles.active=dev"
+          sudo systemctl stop readnshare || echo "서비스가 안 켜져 있었음"
+          sudo systemctl start readnshare
           sleep 5
           echo "📃 실행 로그 미리보기 (app.log):"
           head -n 500 app.log || echo "(로그 없음)"
@@ -70,5 +70,8 @@ jobs:
         run: |
           echo "🔍 실행 중인 Java 프로세스:"
           pgrep -af 'java'
-          
-           
+
+      - name: Restart Spring Boot service
+        if: ${{ success() }}
+        run: |
+
