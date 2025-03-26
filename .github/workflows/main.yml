@@ -18,6 +18,9 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v3
 
+      - name: Grant execute permission to gradlew
+        run: chmod +x gradlew
+
       # Gradle 빌드 및 테스트
       - name: Run unit tests
         run: ./gradlew test
