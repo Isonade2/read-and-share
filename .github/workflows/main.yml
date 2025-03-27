@@ -51,7 +51,7 @@ jobs:
       - name: Build new JAR
         if: ${{ success() }}
         run: ./gradlew build -x test
-
+ 
       - name: Launch updated app
         if: ${{ success() }}
         run: |
