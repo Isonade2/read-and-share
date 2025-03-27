@@ -24,13 +24,7 @@ jobs:
         NAVER_BOOK_SECRET: ${{ secrets.NAVER_BOOK_SECRET }}
         SQL_INIT_MODE: ${{ secrets.SQL_INIT_MODE }}
 
-
-
-
-
     steps:
-
-
       # 코드 가져오기
       - name: Check out code
         uses: actions/checkout@v3
